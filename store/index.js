@@ -6,13 +6,15 @@ import menu_orders from './reducers/menu_orders';
 import thunk from 'redux-thunk';
 import common_orders_list from './reducers/common-orders';
 import wallet from './reducers/wallet';
+import auth from './reducers/auth';
 
 const  rootReducer=combineReducers({
   home,
   order,
   menu_orders,
   common_orders_list,
-  wallet
+  wallet,
+  auth,
 });
 
 

@@ -1,4 +1,5 @@
 import moment from "moment";
+
 //calander start here
 const getMonth=(year=2021,month=11) =>{
   
@@ -155,7 +156,7 @@ const signupValidation = async (fields = {}) => {
   if (!fields?.name?.trim()) {
     console.log("getEmptyFieldMessage", getEmptyFieldMessage("name"));
     return getEmptyFieldMessage("name");
-  } else if (!fields?.username?.trim()) {
+  } else if (!fields?.user_name?.trim()) {
     console.log("getEmptyFieldMessage", getEmptyFieldMessage("username"));
     return getEmptyFieldMessage("username");
   } else if (!fields?.email?.trim()) {
@@ -167,11 +168,11 @@ const signupValidation = async (fields = {}) => {
     return getEmptyFieldMessage("password");
   } else if (fields?.password?.trim()?.length < 8) {
     return getPasswordMessage("password");
-  } else if (!fields?.cpassword?.trim()) {
+  } else if (!fields?.confirm_password?.trim()) {
     return getEmptyFieldMessage("confirm password");
-  } else if (fields?.cpassword?.trim()?.length < 8) {
+  } else if (fields?.confirm_password?.trim()?.length < 8) {
     return getPasswordMessage("confirm password");
-  } else if (!isPasswordsMatched(fields.password, fields.cpassword)) {
+  } else if (!isPasswordsMatched(fields.password, fields.confirm_password)) {
     return getNotMatched();
   }
   return getOkMessage();

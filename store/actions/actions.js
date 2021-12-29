@@ -308,6 +308,41 @@ const fetchSingleDeliverHistoryOrderDetails = (order_id) => {
   };
 };
 
+//auth
+const postRegisterData = (payload) => {
+  return async(dispatch, getState) => {
+    try {
+      console.log('payload: in actions',payload);
+      const data =  await TAKE_2_API.postRegisterData(payload);
+      console.log(' response data:',data);
+      // dispatch({
+      //   type: Actions.FETCH_DELIVERY_HISTORY_ORDER_DETAILS,
+      //   payload: data,
+      // });
+    } catch (error) {
+      console.log(error)
+      throw new Error(error.message);
+    }
+  };
+};
+
+const postSigninData = (payload) => {
+  return async(dispatch, getState) => {
+    try {
+      console.log('payload: in actions',payload);
+      const data =  await TAKE_2_API.postSigninData(payload);
+      console.log(' response data:',data);
+      // dispatch({
+      //   type: Actions.SET_USER_INFO,
+      //   payload: data,
+      // });
+    } catch (error) {
+      console.log(error)
+      throw new Error(error.message);
+    }
+  };
+};
+
 
 
 
@@ -335,7 +370,11 @@ const TAKE_TO_ACTIONS = {
   fetchWalletDeliveryDetails,
   fetchSingleOrderHistoryOffers,
   fetchOrderHistoryOffersDetails,
-  fetchSingleDeliverHistoryOrderDetails
+  fetchSingleDeliverHistoryOrderDetails,
+  //api integration 
+  //post methods
+  postRegisterData,
+  postSigninData,
 };
 
 export default TAKE_TO_ACTIONS;

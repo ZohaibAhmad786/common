@@ -1,4 +1,8 @@
 import TAKE_TO_MOCK from "../utils/mock";
+import axios from 'axios';
+import services from "./services";
+import TAKE_TO_CONSTANT from "../utils/utils";
+import UI_API from "../store/services";
 
 // GET METHODS
 
@@ -41,7 +45,7 @@ const fetchPublicUserProfile = (user_id) => {
 
 const fetchLocalPostedOrderList = () => {
   //true ? posted-local-orders 
-  return TAKE_TO_MOCK.postedLocalOrderList 
+  return TAKE_TO_MOCK.postedLocalOrderList
 };
 const fetchInternationalPostedOrderList = () => {
   //t posted-international-orders
@@ -115,6 +119,26 @@ const fetchWalletRefundDetails = (order_id) => {
 };
 
 //POST METHODS
+const postRegisterData = async (data) => {
+  const body = UI_API.getFormData(data);
+  const res = await axios.post(`${services.base_url}${services.auth.register}`, body);
+  // wallet-refund-details
+  return res;
+};
+const postSigninData = async (data) => {
+
+  const body = UI_API.getFormData({
+    ...data,
+    client_id:2,
+    client_secret:'b9vfVBmXV7Te9zJUyw14sL04gGOwgHvTvhA7ycBP',
+    grant_type:'password',
+  });
+
+  console.log('body: ',body);
+  const res = await axios.post(`${services.base_url}${services.auth.login}`, body);
+  // wallet-refund-details
+  return res;
+};
 
 const TAKE_2_API = {
   fetchHomeOrdersList,
@@ -141,6 +165,11 @@ const TAKE_2_API = {
   fetchWalletDeliveryDetails,
   fetchWalletPayoutDetails,
   fetchWalletRefundDetails,
+
+  //starting live api from here
+  //post method
+  postRegisterData,
+  postSigninData,
 };
 
 export default TAKE_2_API;
