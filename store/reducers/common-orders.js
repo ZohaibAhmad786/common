@@ -6,7 +6,9 @@ const INITIAL_STATE = {
   local_orders:{},
   international_orders:{},
   all_international_orders:{},
-  popular_stores_list:{}
+  popular_stores_list:{},
+  filter_Orders_radius:[],
+  filter_Orders:[],
 
 };
 
@@ -42,6 +44,16 @@ export default (state = INITIAL_STATE, action) => {
           return {
              ...state,
              all_international_orders: action.payload,
+          };
+        case Actions.FILTER_ORDERS:
+          return {
+             ...state,
+             filter_Orders: action.payload,
+          };
+        case Actions.FILTER_ORDERS_RADIUS:
+          return {
+             ...state,
+             filter_Orders_radius: action.payload,
           };
    
 

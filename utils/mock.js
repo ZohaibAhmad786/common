@@ -1,6 +1,6 @@
 const onBoardContentList = [
   { title: "Welcome to Taketo", content: `The world’s largest\nShopping & Travel Community.` },
-  { title: "Turn Notifications\n&Location Services", content: `From games to gadgets, get any product from\nabroad, delivered by travelers.` },
+  { title: "Turn on Notifications\n& Location Services", content: `From games to gadgets, get any product from\nabroad, delivered by travelers.` },
   { title: "Shop from abroad", content: `From games to gadgets, get any product from\nabroad, delivered by travelers.` },
   { title: "Make money traveling", content: "Make money every time you travel, by delivering\nproducts to locals along the way." },
 ];
@@ -32,7 +32,7 @@ const home_orders_list = {
         order_to: "Albania",
         order_from_flag: "https://www.worldometers.info/img/flags/ae-flag.gif",
         order_to_flag: "https://www.worldometers.info/img/flags/ku-flag.gif",
-        order_created_at: "Mon Jul 12 2021 04:55:39 GMT+0500 (Pakistan Standard Time)",
+        order_created_at:"1 day ago",
         is_international: false,
         order_by: {
           user_name: "Spencer_Lynch69",
@@ -50,7 +50,7 @@ const home_orders_list = {
         order_to: "Cape Verde",
         order_from_flag: "https://www.worldometers.info/img/flags/ae-flag.gif",
         order_to_flag: "https://www.worldometers.info/img/flags/ku-flag.gif",
-        order_created_at: "Thu Jan 07 2021 09:35:35 GMT+0500 (Pakistan Standard Time)",
+        order_created_at:"1 day ago",
         is_international: true,
         order_by: {
           user_name: "Mallory.Batz38",
@@ -68,7 +68,7 @@ const home_orders_list = {
         order_to: "Palestinian Territory",
         order_from_flag: "https://www.worldometers.info/img/flags/ae-flag.gif",
         order_to_flag: "https://www.worldometers.info/img/flags/ku-flag.gif",
-        order_created_at: "Tue Aug 17 2021 01:19:32 GMT+0500 (Pakistan Standard Time)",
+        order_created_at:"1 day ago",
         is_international: true,
         order_by: {
           user_name: "Mariana_Beer",
@@ -86,7 +86,7 @@ const home_orders_list = {
         order_to: "Syrian Arab Republic",
         order_from_flag: "https://www.worldometers.info/img/flags/ae-flag.gif",
         order_to_flag: "https://www.worldometers.info/img/flags/ku-flag.gif",
-        order_created_at: "Sun Nov 21 2021 21:59:36 GMT+0500 (Pakistan Standard Time)",
+        order_created_at:"1 day ago",
         is_international: true,
         order_by: {
           user_name: "Caroline43",
@@ -104,7 +104,7 @@ const home_orders_list = {
         order_from_flag: "https://www.worldometers.info/img/flags/ae-flag.gif",
         order_to_flag: "https://www.worldometers.info/img/flags/ku-flag.gif",
         order_to: "Burundi",
-        order_created_at: "Mon Oct 25 2021 00:57:01 GMT+0500 (Pakistan Standard Time)",
+        order_created_at:"1 day ago",
         is_international: false,
         order_by: {
           user_name: "Florida.Smitham3",
@@ -124,7 +124,7 @@ const home_orders_list = {
         order_to: "Belarus",
         order_from_flag: "https://www.worldometers.info/img/flags/ae-flag.gif",
         order_to_flag: "https://www.worldometers.info/img/flags/ku-flag.gif",
-        order_created_at: "Mon Nov 15 2021 18:41:45 GMT+0500 (Pakistan Standard Time)",
+        order_created_at:"1 day ago",
         is_international: true,
         order_by: {
           user_name: "Trisha_Walsh",
@@ -142,7 +142,7 @@ const home_orders_list = {
         order_to: "Niger",
         order_from_flag: "https://www.worldometers.info/img/flags/ae-flag.gif",
         order_to_flag: "https://www.worldometers.info/img/flags/ku-flag.gif",
-        order_created_at: "Sat Aug 07 2021 17:12:45 GMT+0500 (Pakistan Standard Time)",
+        order_created_at:"1 day ago",
         is_international: true,
         order_by: {
           user_name: "Josue.Senger55",
@@ -160,7 +160,7 @@ const home_orders_list = {
         order_from_flag: "https://www.worldometers.info/img/flags/ae-flag.gif",
         order_to_flag: "https://www.worldometers.info/img/flags/ku-flag.gif",
         order_to: "Yemen",
-        order_created_at: "Fri Jul 30 2021 19:35:57 GMT+0500 (Pakistan Standard Time)",
+        order_created_at:"1 day ago",
         is_international: true,
         order_by: {
           user_name: "Garrison.Bartoletti",
@@ -178,7 +178,7 @@ const home_orders_list = {
         order_to: "Jersey",
         order_from_flag: "https://www.worldometers.info/img/flags/ae-flag.gif",
         order_to_flag: "https://www.worldometers.info/img/flags/ku-flag.gif",
-        order_created_at: "Sat Jun 05 2021 09:12:20 GMT+0500 (Pakistan Standard Time)",
+        order_created_at:"1 day ago",
         is_international: false,
         order_by: {
           user_name: "Skylar_Cummings",
@@ -196,7 +196,7 @@ const home_orders_list = {
         order_to: "Sweden",
         order_from_flag: "https://www.worldometers.info/img/flags/ae-flag.gif",
         order_to_flag: "https://www.worldometers.info/img/flags/ku-flag.gif",
-        order_created_at: "Sat Jun 26 2021 06:38:27 GMT+0500 (Pakistan Standard Time)",
+        order_created_at:"1 day ago",
         is_international: true,
         order_by: {
           user_name: "Juvenal_DuBuque46",
@@ -216,7 +216,7 @@ const home_orders_list = {
         order_to_flag: "https://www.worldometers.info/img/flags/ku-flag.gif",
         order_from: "Antarctica (the territory South of 60 deg S)",
         order_to: "Northern Mariana Islands",
-        order_created_at: "Sun Aug 22 2021 18:04:08 GMT+0500 (Pakistan Standard Time)",
+        order_created_at:"1 day ago",
         is_international: true,
         order_by: {
           user_name: "Valentina.Lueilwitz",
@@ -238,7 +238,7 @@ const home_orders_list = {
         order_from_flag: "https://www.worldometers.info/img/flags/ae-flag.gif",
         order_to_flag: "https://www.worldometers.info/img/flags/ku-flag.gif",
         order_to: "Australia",
-        order_created_at: "Tue May 25 2021 15:59:09 GMT+0500 (Pakistan Standard Time)",
+        order_created_at:"1 day ago",
         is_international: false,
         order_by: {
           user_name: "Edna75",
@@ -260,7 +260,7 @@ const home_orders_list = {
         order_to: "Iran",
         order_from_flag: "https://www.worldometers.info/img/flags/ae-flag.gif",
         order_to_flag: "https://www.worldometers.info/img/flags/ku-flag.gif",
-        order_created_at: "Fri Oct 15 2021 18:38:30 GMT+0500 (Pakistan Standard Time)",
+        order_created_at:"1 day ago",
         is_international: false,
         order_by: {
           user_name: "Kiana.Kirlin74",
@@ -282,7 +282,7 @@ const home_orders_list = {
         order_to: "Romania",
         order_from_flag: "https://www.worldometers.info/img/flags/ae-flag.gif",
         order_to_flag: "https://www.worldometers.info/img/flags/ku-flag.gif",
-        order_created_at: "Thu Dec 17 2020 22:48:44 GMT+0500 (Pakistan Standard Time)",
+        order_created_at:"1 day ago",
         is_international: false,
         order_by: {
           user_name: "Allie18",
@@ -304,7 +304,7 @@ const home_orders_list = {
         order_from_flag: "https://www.worldometers.info/img/flags/ae-flag.gif",
         order_to_flag: "https://www.worldometers.info/img/flags/ku-flag.gif",
         order_to: "Netherlands Antilles",
-        order_created_at: "Tue Mar 09 2021 00:00:13 GMT+0500 (Pakistan Standard Time)",
+        order_created_at:"1 day ago",
         is_international: true,
         order_by: {
           user_name: "Nora6",
@@ -328,7 +328,7 @@ const home_orders_list = {
         order_to: "Brunei Darussalam",
         order_from_flag: "https://www.worldometers.info/img/flags/ae-flag.gif",
         order_to_flag: "https://www.worldometers.info/img/flags/ku-flag.gif",
-        order_created_at: "Wed Oct 27 2021 13:21:11 GMT+0500 (Pakistan Standard Time)",
+        order_created_at:"1 day ago",
         is_international: false,
         order_by: {
           user_name: "Brent.Funk",
@@ -350,7 +350,7 @@ const home_orders_list = {
         order_to: "Greenland",
         order_from_flag: "https://www.worldometers.info/img/flags/ae-flag.gif",
         order_to_flag: "https://www.worldometers.info/img/flags/ku-flag.gif",
-        order_created_at: "Sun Aug 01 2021 11:44:15 GMT+0500 (Pakistan Standard Time)",
+        order_created_at:"1 day ago",
         is_international: true,
         order_by: {
           user_name: "Cullen81",
@@ -372,7 +372,7 @@ const home_orders_list = {
         order_to: "Bahamas",
         order_from_flag: "https://www.worldometers.info/img/flags/ae-flag.gif",
         order_to_flag: "https://www.worldometers.info/img/flags/ku-flag.gif",
-        order_created_at: "Fri Apr 30 2021 12:51:03 GMT+0500 (Pakistan Standard Time)",
+        order_created_at:"1 day ago",
         is_international: true,
         order_by: {
           user_name: "Rogelio.Howe57",
@@ -394,7 +394,7 @@ const home_orders_list = {
         order_to: "Lao People's Democratic Republic",
         order_from_flag: "https://www.worldometers.info/img/flags/ae-flag.gif",
         order_to_flag: "https://www.worldometers.info/img/flags/ku-flag.gif",
-        order_created_at: "Sat Jun 12 2021 18:58:43 GMT+0500 (Pakistan Standard Time)",
+        order_created_at:"1 day ago",
         is_international: true,
         order_by: {
           user_name: "Agustina.Walker",
@@ -416,7 +416,7 @@ const home_orders_list = {
         order_to: "Timor-Leste",
         order_from_flag: "https://www.worldometers.info/img/flags/ae-flag.gif",
         order_to_flag: "https://www.worldometers.info/img/flags/ku-flag.gif",
-        order_created_at: "Sun May 02 2021 10:50:43 GMT+0500 (Pakistan Standard Time)",
+        order_created_at:"1 day ago",
         is_international: false,
         order_by: {
           user_name: "Matilde30",

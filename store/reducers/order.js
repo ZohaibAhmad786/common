@@ -5,12 +5,20 @@ const INITIAL_STATE = {
   posted_orders:{},
   processing_orders:{},
   delivery_orders:{},
+
+  my_orders:{}
   
 };
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case Actions.FETCH_RELEVENT_ORDERS_LIST:
+    case Actions.FETCH_MY_CREATED_ORDERS_LIST:
+      return {
+         ...state,
+         my_orders: action.payload,
+      };
+   
+      case Actions.FETCH_RELEVENT_ORDERS_LIST:
       return {
          ...state,
         relavent_orders: action.payload,

@@ -1,31 +1,28 @@
 import moment from "moment";
 
 //calander start here
-const getMonth=(year=2021,month=11) =>{
-  
-  let startDate = moment([year, month - 1])
-  let endDate = moment(startDate).endOf('month');
+const getMonth = (year = 2021, month = 11) => {
+  let startDate = moment([year, month - 1]);
+  let endDate = moment(startDate).endOf("month");
 
   var dates = [];
   var weeks = [];
 
   var per_week = [];
-  var difference = endDate.diff(startDate, 'days');
+  var difference = endDate.diff(startDate, "days");
 
-  per_week.push(startDate.toDate())
+  per_week.push(startDate.toDate());
   let index = 0;
   let last_week = false;
-  while (startDate.add(1, 'days').diff(endDate) < 0) {
+  while (startDate.add(1, "days").diff(endDate) < 0) {
     if (startDate.day() != 0) {
-      per_week.push(startDate.toDate())
-    }
-    else {
-      if ((startDate.clone().add(7, 'days').month() == (month - 1))) {
-        weeks.push(per_week)
-        per_week = []
-        per_week.push(startDate.toDate())
-      }
-      else if (Math.abs(index - difference) > 0) {
+      per_week.push(startDate.toDate());
+    } else {
+      if (startDate.clone().add(7, "days").month() == month - 1) {
+        weeks.push(per_week);
+        per_week = [];
+        per_week.push(startDate.toDate());
+      } else if (Math.abs(index - difference) > 0) {
         if (!last_week) {
           weeks.push(per_week);
           per_week = [];
@@ -35,28 +32,24 @@ const getMonth=(year=2021,month=11) =>{
       }
     }
     index += 1;
-    if ((last_week == true && Math.abs(index - difference) == 0) ||
-      (Math.abs(index - difference) == 0 && per_week.length == 1)) {
-      weeks.push(per_week)
+    if ((last_week == true && Math.abs(index - difference) == 0) || (Math.abs(index - difference) == 0 && per_week.length == 1)) {
+      weeks.push(per_week);
     }
     dates.push(startDate.clone().toDate());
   }
-  const fullMonths=[];
-  weeks.map(week=>{
-      week?.map(day=>{
-        fullMonths.push(day);
-      })
+  const fullMonths = [];
+  weeks.map((week) => {
+    week?.map((day) => {
+      fullMonths.push(day);
+    });
   });
   return fullMonths;
-}
+};
 
-
-
-
-const convertUpperCase = (label='') => {
+const convertUpperCase = (label = "") => {
   return label.toLocaleUpperCase();
 };
-const convertCapitalizeFirst = (str='') => {
+const convertCapitalizeFirst = (str = "") => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
 const getConversationDate = (time) => {
@@ -67,7 +60,7 @@ const getConversationDate = (time) => {
     return date.split(" at ")[0];
   }
 };
-const getConversationTime = (time) =>moment(time).format('hh:mm A');
+const getConversationTime = (time) => moment(time).format("hh:mm A");
 const getFromNow = (date) => {
   return moment(date).fromNow();
 };
@@ -127,7 +120,7 @@ const getPasswordMessage = (fieldName) => ({ message: `Oops! your ${fieldName} l
 const getNotMatched = () => ({ message: `Oops! Password and confirm password did not match`, status: false });
 const getOkMessage = () => ({ message: `OK`, status: true });
 //signin fields validation
-const signinValidation = async (fields = {}) => {
+const signinValidation = (fields = {}) => {
   if (!fields?.email?.trim()) {
     console.log("getEmptyFieldMessage", getEmptyFieldMessage("email"));
     return getEmptyFieldMessage("email");
@@ -141,7 +134,7 @@ const signinValidation = async (fields = {}) => {
   return getOkMessage();
 };
 //reset field validation
-const resetValidation = async (fields = {}) => {
+const resetValidation = (fields = {}) => {
   console.log("fields: ", fields);
   if (!fields?.email?.trim()) {
     console.log("getEmptyFieldMessage", getEmptyFieldMessage("email"));
@@ -152,7 +145,7 @@ const resetValidation = async (fields = {}) => {
   return getOkMessage();
 };
 //sign up validation
-const signupValidation = async (fields = {}) => {
+const signupValidation = (fields = {}) => {
   if (!fields?.name?.trim()) {
     console.log("getEmptyFieldMessage", getEmptyFieldMessage("name"));
     return getEmptyFieldMessage("name");
@@ -178,38 +171,116 @@ const signupValidation = async (fields = {}) => {
   return getOkMessage();
 };
 //account info validation
-const accountInfoValidation = async (fields = {}) => {
+const accountInfoValidation = (fields = {}) => {
   if (!fields?.name?.trim()) {
     console.log("getEmptyFieldMessage", getEmptyFieldMessage("name"));
     return getEmptyFieldMessage("name");
-  } else if (!fields?.username?.trim()) {
+  } else if (!fields?.user_name?.trim()) {
     console.log("getEmptyFieldMessage", getEmptyFieldMessage("username"));
     return getEmptyFieldMessage("username");
   }
   return getOkMessage();
 };
 //new address validation
-const newAddressValidation = async (fields = {}) => {
-  if (!fields?.addressName?.trim()) {
+const newAddressValidation = (fields = {}) => {
+  if (!fields?.addressNickName?.trim()) {
     return getEmptyFieldMessage("address name");
   } else if (!fields?.area?.trim()) {
     return getEmptyFieldMessage("area");
-  } else if (!fields?.block?.trim()) {
-    return getEmptyFieldMessage("block");
-  } else if (!fields?.street?.trim()) {
-    return getEmptyFieldMessage("street");
-  } else if (!fields?.addressType?.trim()) {
-    return getEmptyFieldMessage("address type");
-  } else if (!fields?.building?.trim()) {
-    return getEmptyFieldMessage("building");
-  } else if (!fields?.floor?.trim()) {
-    return getEmptyFieldMessage("floor");
-  } else if (!fields?.officeNumber?.trim()) {
-    return getEmptyFieldMessage("office number");
+  } 
+  // } else if (!fields?.street?.trim()) {
+  //   return getEmptyFieldMessage("street");
+  // } else if (!fields?.addressType?.trim()) {
+  //   return getEmptyFieldMessage("address type");
+  // } else if (!fields?.building?.trim()) {
+  //   return getEmptyFieldMessage("building");
+  // } else if (!fields?.floor?.trim()) {
+  //   return getEmptyFieldMessage("floor");
+  // } else if (!fields?.officeNumber?.trim()) {
+  //   return getEmptyFieldMessage("office number");
+  // }
+  return getOkMessage();
+};
+
+
+const physicalShopValidation = (fields = {}) => {
+  if (fields?.images?.length < 2) {
+    return getEmptyFieldMessage("product images");
+  } else if (!fields?.productName?.trim()) {
+    return getEmptyFieldMessage("product name");
+  } else if (!fields?.productPrice?.trim()) {
+    return getEmptyFieldMessage("product price");
+  } else if (!fields?.productDetails?.trim()) {
+    return getEmptyFieldMessage("product detail");
+  } else if (!fields?.shopName?.trim()) {
+    return getEmptyFieldMessage("shop name");
+  } else if (!fields?.shopAddress) {
+    return getEmptyFieldMessage("shop address");
+  } else if (!fields?.instractions?.trim()) {
+    return getEmptyFieldMessage("instractions");
   }
   return getOkMessage();
 };
+
+const eShopValidation = (fields = {}) => {
+  if (!fields?.url?.trim()) {
+    return getEmptyFieldMessage("product url");
+  } else if (fields?.images?.length < 2) {
+    return getEmptyFieldMessage("product images");
+  } else if (!fields?.productName?.trim()) {
+    return getEmptyFieldMessage("product name");
+  } else if (!fields?.productPrice?.trim()) {
+    return getEmptyFieldMessage("product price");
+  } else if (!fields?.productDetails?.trim()) {
+    return getEmptyFieldMessage("product detail");
+  // } else if (!fields?.country?.trim()) {
+  //   return getEmptyFieldMessage("buy from");
+  } else if (!fields?.instractions) {
+    return getEmptyFieldMessage("instractions");
+  }
+  return getOkMessage();
+};
+
+const deliveryDetailsValidation = (fields = {}) => {
+    if(!fields?.storeAddress){
+    return getEmptyFieldMessage("by from");  
+  } else if(!fields?.deliveryLocation){
+    return getEmptyFieldMessage("delivery address");
+  } else if (parseInt(fields?.reward) < 1){
+    return getEmptyFieldMessage("reward");
+  } else if (!fields?.isUrgent && !fields?.date){
+    return getEmptyFieldMessage("delivery date");  
+  }
+  return getOkMessage();
+};
+
+
+const shopAddressValidation = (fields = {}) => {
+  if(!fields?.street_number?.trim()){
+    return getEmptyFieldMessage("street/road");
+  } else if (!fields?.area?.trim()){
+    return getEmptyFieldMessage("area/block");
+  } else if (!fields?.city?.trim()){
+    return getEmptyFieldMessage("city");  
+  } else if (!fields?.country?.trim()){
+    return getEmptyFieldMessage("country");
+  }
+  return getOkMessage();
+};
+
+const returnErrorList = (data) => {
+  let text = '';
+
+  Object.values(data.errors).forEach((el) => {
+    text += `${el}\n`;
+  });
+  return text.trim();
+};
 const TAKE_TO_CONSTANT = {
+  shopAddressValidation,
+  deliveryDetailsValidation,
+  physicalShopValidation,
+  eShopValidation,
   getMonth,
   convertUpperCase,
   convertCapitalizeFirst,
@@ -228,6 +299,7 @@ const TAKE_TO_CONSTANT = {
   intValidation,
   accountInfoValidation,
   newAddressValidation,
+  returnErrorList
 };
 
 export default TAKE_TO_CONSTANT;

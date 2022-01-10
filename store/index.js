@@ -7,7 +7,9 @@ import thunk from 'redux-thunk';
 import common_orders_list from './reducers/common-orders';
 import wallet from './reducers/wallet';
 import auth from './reducers/auth';
+import { SET_LOGOUT } from './ActionTypes';
 
+import common from './reducers/common';
 const  rootReducer=combineReducers({
   home,
   order,
@@ -15,12 +17,19 @@ const  rootReducer=combineReducers({
   common_orders_list,
   wallet,
   auth,
+  common
 });
 
+const appReducer = (state, action) => {
+  if (action.type ===SET_LOGOUT) {
+    return rootReducer(undefined, action)
+  }
+  return rootReducer(state, action)
+}
 
 const composeEnhancers = window.REDUX_DEVTOOLS_EXTENSION_COMPOSE || compose;
  const store = createStore(
-  rootReducer,
+  appReducer,
   composeEnhancers(applyMiddleware(thunk)),
 );
 

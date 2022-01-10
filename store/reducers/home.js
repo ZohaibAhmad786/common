@@ -9,11 +9,9 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case Actions.FETCH_HOME_ORDERS_LIST:
-      // console.log(action.payload)
       return {
          ...state,
         home_orders: action.payload,
-        // isGuest: false,
       };
    
 

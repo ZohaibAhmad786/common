@@ -3,5 +3,62 @@ export default {
     auth:{
         register:'register',
         login :'oauth/token',
+        email_otp:'send-email-otp',
+        language:'languages'
+    },
+    user:{
+        user_profile:'user-profile',//private
+        user_public_profile:'user-profile/',//user-profile/1,
+        user_address:'user-address',
+        update_profile:'update-profile'
+    },
+    common:{
+        countires:'countries?limit=0',
+        storeList:'popular-stores'
+    },
+    create_order:{
+        order_request:'order-request',
+        make_offer:'make-offer'
+    },
+
+    order:{
+       home_order: 'home-orders',
+       relevant_orders:'relevant-orders',
+       posted_orders:'posted-orders',
+       processing_orders:'processing-orders',
+       completed_orders:'completed-orders',
+       order_details_for_offer:'order-details-for-offer',
+       order_details:'order-details',
+       posted_local_orders:'posted-local-orders',
+       posted_international_orders:'posted-international-orders',
+       posted_international_orders_all:'posted-international-orders-all',
+       order_offers:'order-offers',
+       offer_details:'offer-details',
+       posted_heigh_paid_international_orders:'posted-heigh-paid-international-orders',
+    },
+    history_order:{
+        order_history_local :'order-history-local',
+        order_history_international:'order-history-international',
+    },
+    deliver_order:{
+        delivery_history_local:'delivery-history-local',
+        delivery_history_international:'delivery-history-international',
+        deliverer_order_details:'deliverer-order-details'
+    },
+    my_orders:{
+        my_orders:"my-orders"
+    },
+    dipusted_order:{
+        dispute_orders:'dispute-orders',
+    },
+    wallet:{
+        wallet_history:'wallet-history',
+        wallet_delivery_details:'wallet-delivery-details',
+        wallet_payout_details:'wallet-payout-details',
+        wallet_refund_details:'wallet-refund-details'
+    },
+    trip:{
+        international_trip:'international-trip',
+        local_trip:'local-trip',
     }
 }
