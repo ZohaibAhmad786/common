@@ -61,6 +61,7 @@ const getConversationDate = (time) => {
   }
 };
 const getConversationTime = (time) => moment(time).format("hh:mm A");
+
 const getFromNow = (date) => {
   return moment(date).fromNow();
 };
@@ -93,13 +94,13 @@ const validatePhoneNumber = (phoneNumber) => {
   return patt.test(phoneNumber);
 };
 //email regex
-const validateEmail = (mail) => {
+export const validateEmail = (mail) => {
   const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(String(mail).toLowerCase());
 };
 //float number validation
 const floatValidation = (number) => {
-  var patt = new RegExp(/^([0-9]+[.])?[0-9]+$/);
+  var patt = new RegExp(/^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$/);
   return patt.test(number);
 };
 //int number validation
@@ -115,6 +116,7 @@ const getOccurrence = (str, substr) => {
 const isPasswordsMatched = (password, cpassword) => password == cpassword;
 //possible messages to be displayed
 const getEmptyFieldMessage = (fieldName) => ({ message: `Oops! you have forgot to enter ${fieldName}`, status: false });
+const getLessThenZeroMessage = (fieldName) => ({ message: `Oops! your ${fieldName} must be grater then 1`, status: false });
 const getInvalidFieldMessage = (fieldName) => ({ message: `Oops! you have entered invalid ${fieldName}`, status: false });
 const getPasswordMessage = (fieldName) => ({ message: `Oops! your ${fieldName} length must be greater or equal to 8 characters`, status: false });
 const getNotMatched = () => ({ message: `Oops! Password and confirm password did not match`, status: false });
@@ -128,27 +130,64 @@ const signinValidation = (fields = {}) => {
     return getInvalidFieldMessage("email");
   } else if (!fields?.password?.trim()) {
     return getEmptyFieldMessage("password");
-  } else if (fields?.password?.trim()?.length < 8) {
-    return getPasswordMessage("password");
   }
+  //  else if (fields?.password?.trim()?.length < 8) {
+  //   return getPasswordMessage("password");
+  // }
+  return getOkMessage();
+};
+const resetPasswordValidation = (fields = {}) => {
+  if (!fields?.password?.trim()) {
+    return getEmptyFieldMessage("password");
+  } else
+    if (fields?.password?.trim()?.length < 8) {
+      return getPasswordMessage("password");
+    } else if (!fields?.confirm_password?.trim()) {
+      return getEmptyFieldMessage("confirm password");
+    } else if (!isPasswordsMatched(fields.password, fields.confirm_password)) {
+      return getNotMatched();
+    }
+  //  else if (fields?.password?.trim()?.length < 8) {
+  //   return getPasswordMessage("password");
+  // }
   return getOkMessage();
 };
 //reset field validation
 const resetValidation = (fields = {}) => {
   console.log("fields: ", fields);
   if (!fields?.email?.trim()) {
-    console.log("getEmptyFieldMessage", getEmptyFieldMessage("email"));
     return getEmptyFieldMessage("email");
   } else if (!validateEmail(fields?.email)) {
     return getInvalidFieldMessage("email");
   }
   return getOkMessage();
 };
+
+//submitRequestValidation validation
+const submitRequestValidation = (fields = {}) => {
+  console.log("fields: ", fields);
+  if (!fields?.title?.trim()) {
+    return getEmptyFieldMessage("title");
+  } else if (!fields?.message.trim()) {
+    return getEmptyFieldMessage("message");
+  }
+  return getOkMessage();
+};
+//submitReview validation
+const submitReviewValidation = (fields = {}) => {
+  console.log("fields: ", fields);
+  if (!fields?.communicationStar && !fields?.ServiceStar && !fields?.PunctualityStar) {
+    return ({
+      status: false,
+      message: 'Oops! It seems that you have forgot to rate user'
+    })
+  }
+  return getOkMessage();
+};
 //sign up validation
 const signupValidation = (fields = {}) => {
   if (!fields?.name?.trim()) {
-    console.log("getEmptyFieldMessage", getEmptyFieldMessage("name"));
-    return getEmptyFieldMessage("name");
+    return getEmptyFieldMessage("first & last name");
   } else if (!fields?.user_name?.trim()) {
     console.log("getEmptyFieldMessage", getEmptyFieldMessage("username"));
     return getEmptyFieldMessage("username");
@@ -173,21 +212,20 @@ const signupValidation = (fields = {}) => {
 //account info validation
 const accountInfoValidation = (fields = {}) => {
   if (!fields?.name?.trim()) {
-    console.log("getEmptyFieldMessage", getEmptyFieldMessage("name"));
-    return getEmptyFieldMessage("name");
+    return getEmptyFieldMessage("first & last name");
   } else if (!fields?.user_name?.trim()) {
-    console.log("getEmptyFieldMessage", getEmptyFieldMessage("username"));
     return getEmptyFieldMessage("username");
   }
   return getOkMessage();
 };
 //new address validation
 const newAddressValidation = (fields = {}) => {
-  if (!fields?.addressNickName?.trim()) {
-    return getEmptyFieldMessage("address name");
-  } else if (!fields?.area?.trim()) {
+  // if (!fields?.addressNickName?.trim()) {
+  //   return getEmptyFieldMessage("address name");
+  // } else
+  if (!fields?.area?.trim()) {
     return getEmptyFieldMessage("area");
-  } 
+  }
   // } else if (!fields?.street?.trim()) {
   //   return getEmptyFieldMessage("street");
   // } else if (!fields?.addressType?.trim()) {
@@ -202,23 +240,32 @@ const newAddressValidation = (fields = {}) => {
   return getOkMessage();
 };
 
-
 const physicalShopValidation = (fields = {}) => {
+  //const conditions = [",", "/", "+","-","#"]
   if (fields?.images?.length < 2) {
     return getEmptyFieldMessage("product images");
   } else if (!fields?.productName?.trim()) {
     return getEmptyFieldMessage("product name");
   } else if (!fields?.productPrice?.trim()) {
     return getEmptyFieldMessage("product price");
+    // } else if (conditions.some(el => (fields?.productPrice).includes(el))) {
+    //   return getInvalidFieldMessage("product price");
+    // } else if (fields?.productPrice?.trim().charAt(fields?.productPrice?.length - 1) == ".") {
+    //   return getInvalidFieldMessage("product price");
+    // } else if ((fields?.productPrice?.split('.').length - 1) > 1) {
+    //   return getInvalidFieldMessage("product price");
+  } else if (parseFloat(fields?.productPrice) < 1) {
+    return getLessThenZeroMessage("product price");
   } else if (!fields?.productDetails?.trim()) {
     return getEmptyFieldMessage("product detail");
   } else if (!fields?.shopName?.trim()) {
     return getEmptyFieldMessage("shop name");
   } else if (!fields?.shopAddress) {
     return getEmptyFieldMessage("shop address");
-  } else if (!fields?.instractions?.trim()) {
-    return getEmptyFieldMessage("instractions");
   }
+  // else if (!fields?.instractions?.trim()) {
+  //   return getEmptyFieldMessage("instractions");
+  // }
   return getOkMessage();
 };
 
@@ -231,52 +278,105 @@ const eShopValidation = (fields = {}) => {
     return getEmptyFieldMessage("product name");
   } else if (!fields?.productPrice?.trim()) {
     return getEmptyFieldMessage("product price");
+    // } else if (fields?.productPrice?.trim().charAt(fields?.productPrice?.length - 1) == ".") {
+    //   return getInvalidFieldMessage("product price");
+    // } else if (fields?.productPrice?.trim().includes(',')) {
+    //   return getInvalidFieldMessage("product price");
+    // } else if ((fields?.productPrice?.split('.').length - 1) > 1) {
+    //   return getInvalidFieldMessage("product price");
+  } else if (parseFloat(fields?.productPrice) < 1) {
+    return getLessThenZeroMessage("product price");
   } else if (!fields?.productDetails?.trim()) {
     return getEmptyFieldMessage("product detail");
-  // } else if (!fields?.country?.trim()) {
-  //   return getEmptyFieldMessage("buy from");
-  } else if (!fields?.instractions) {
-    return getEmptyFieldMessage("instractions");
+  } else if (!fields?.country?.trim()) {
+    return getEmptyFieldMessage("buy from");
   }
+  // else if (!fields?.instractions) {
+  //   return getEmptyFieldMessage("instractions");
+  // }
   return getOkMessage();
 };
 
 const deliveryDetailsValidation = (fields = {}) => {
-    if(!fields?.storeAddress){
-    return getEmptyFieldMessage("by from");  
-  } else if(!fields?.deliveryLocation){
+  if (!fields?.deliveryLocation) {
     return getEmptyFieldMessage("delivery address");
-  } else if (parseInt(fields?.reward) < 1){
-    return getEmptyFieldMessage("reward");
-  } else if (!fields?.isUrgent && !fields?.date){
-    return getEmptyFieldMessage("delivery date");  
+  } else if (!fields?.reward?.trim()) {
+    return getEmptyFieldMessage("reward price");
+    // } else if (fields?.reward?.trim().charAt(fields?.reward?.length - 1) == ".") {
+    //   return getInvalidFieldMessage("product price");
+    // } else if (fields?.reward?.trim().includes(',')) {
+    //   return getInvalidFieldMessage("reward price");
+    // } else if ((fields?.reward?.split('.').length - 1) > 1) {
+    //   return getInvalidFieldMessage("reward price");
+  } else if (parseFloat(fields?.reward) < 1) {
+    return getLessThenZeroMessage("reward price");
+  } else if (!fields?.isUrgent && !fields?.date) {
+    return getEmptyFieldMessage("delivery date");
   }
   return getOkMessage();
 };
 
+const offerPriceValidation = (fields = {}) => {
+  if (!fields?.offerPrice?.trim()) {
+    return getEmptyFieldMessage("offer price");
+    // } else if (fields?.offerPrice?.trim().includes(',')) {
+    //   return getInvalidFieldMessage("offer price");
+    // } else if (fields?.offerPrice?.trim().charAt(fields?.offerPrice?.length - 1) == ".") {
+    //   return getInvalidFieldMessage("product price");
+    // } else if ((fields?.offerPrice?.split('.').length - 1) > 1) {
+    //   return getInvalidFieldMessage("offer price");
+  } else if (parseFloat(fields?.offerPrice) < 1) {
+    return getLessThenZeroMessage("offer price");
+  }
+  return getOkMessage();
+};
 
 const shopAddressValidation = (fields = {}) => {
-  if(!fields?.street_number?.trim()){
+  if (!fields?.street_number?.trim()) {
     return getEmptyFieldMessage("street/road");
-  } else if (!fields?.area?.trim()){
+  } else if (!fields?.area?.trim()) {
     return getEmptyFieldMessage("area/block");
-  } else if (!fields?.city?.trim()){
-    return getEmptyFieldMessage("city");  
-  } else if (!fields?.country?.trim()){
+  } else if (!fields?.city?.trim()) {
+    return getEmptyFieldMessage("city");
+  } else if (!fields?.country?.trim()) {
     return getEmptyFieldMessage("country");
   }
   return getOkMessage();
 };
 
 const returnErrorList = (data) => {
-  let text = '';
+  let text = "";
 
   Object.values(data.errors).forEach((el) => {
     text += `${el}\n`;
   });
   return text.trim();
 };
+
+
+const _returnHeaderTitle = (str) => {
+  //split the above string into an array of strings 
+  //whenever a blank space is encountered
+
+  const arr = str.split(" ");
+
+  //loop through each element of the array and capitalize the first letter.
+
+
+  for (var i = 0; i < arr.length; i++) {
+    arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
+
+  }
+
+  //Join all the elements of the array back into a string 
+  //using a blankspace as a separator 
+  const str2 = arr.join(" ");
+  return str2
+}
+
 const TAKE_TO_CONSTANT = {
+  submitReviewValidation,
+  resetPasswordValidation,
   shopAddressValidation,
   deliveryDetailsValidation,
   physicalShopValidation,
@@ -291,15 +391,20 @@ const TAKE_TO_CONSTANT = {
   restElementAfterSplitting,
   returnObjectKeys,
   _returnTaxSum,
+  validateEmail,
   //validations pages
   signinValidation,
   resetValidation,
+  submitRequestValidation,
   signupValidation,
   floatValidation,
   intValidation,
   accountInfoValidation,
   newAddressValidation,
-  returnErrorList
+  returnErrorList,
+  getLessThenZeroMessage,
+  offerPriceValidation,
+  _returnHeaderTitle
 };
 
 export default TAKE_TO_CONSTANT;

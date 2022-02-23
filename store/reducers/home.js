@@ -13,8 +13,8 @@ export default (state = INITIAL_STATE, action) => {
          ...state,
         home_orders: action.payload,
       };
-   
-
+      case Actions.SET_LOGOUT:
+        return INITIAL_STATE;
     default:
       return state;
   }

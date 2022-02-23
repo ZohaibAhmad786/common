@@ -6,11 +6,17 @@ const INITIAL_STATE = {
   disputedOrders: [],
   orderyHistoryOffers: {},
   orderHistoryOfferDetails: {},
-  deliverHistoryOrderDetial:{}
+  deliverHistoryOrderDetial:{},
+  myOffersList:{}
 };
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case Actions.FETCH_MY_OFFERS_LIST:
+      return {
+        ...state,
+        myOffersList: action.payload,
+      };
     case Actions.FETCH_ORDER_HISTORY_LIST:
       return {
         ...state,
@@ -44,7 +50,8 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         deliverHistoryOrderDetial: action.payload,
       };
-
+      case Actions.SET_LOGOUT:
+        return INITIAL_STATE;
     default:
       return state;
   }
