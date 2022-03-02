@@ -164,7 +164,11 @@ const resetValidation = (fields = {}) => {
 
 //submitRequestValidation validation
 const submitRequestValidation = (fields = {}) => {
+<<<<<<< HEAD
 
+=======
+  console.log("fields: ", fields);
+>>>>>>> a974081d9fa8f10fe552e40770d5c83612c59cad
   if (!fields?.title?.trim()) {
     return getEmptyFieldMessage("title");
   } else if (!fields?.message.trim()) {
@@ -174,7 +178,11 @@ const submitRequestValidation = (fields = {}) => {
 };
 //submitReview validation
 const submitReviewValidation = (fields = {}) => {
+<<<<<<< HEAD
 
+=======
+  console.log("fields: ", fields);
+>>>>>>> a974081d9fa8f10fe552e40770d5c83612c59cad
   if (!fields?.communicationStar && !fields?.ServiceStar && !fields?.PunctualityStar) {
     return ({
       status: false,

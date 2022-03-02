@@ -44,7 +44,10 @@ const INITIAL_STATE = {
     //flags
     to_flag: '',
     from_flag: '',
+<<<<<<< HEAD
     sort_by : '',
+=======
+>>>>>>> a974081d9fa8f10fe552e40770d5c83612c59cad
   },
   internationalFilter: {
     to_latitude: '',
@@ -70,7 +73,10 @@ const INITIAL_STATE = {
     //flags
     to_flag: '',
     from_flag: '',
+<<<<<<< HEAD
     sort_by : '',
+=======
+>>>>>>> a974081d9fa8f10fe552e40770d5c83612c59cad
   },
 
 };

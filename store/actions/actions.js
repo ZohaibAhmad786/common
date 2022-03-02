@@ -246,6 +246,7 @@ const fetchPostedLocalOrdersList = (latitude, longitude, page = 1) => {
 
       const newOrderList = isAlreadyHasOrders
         ? {
+<<<<<<< HEAD
           highPay_destinations: response?.highPay_destinations,
           local_orders: {
           data: [
@@ -256,6 +257,14 @@ const fetchPostedLocalOrdersList = (latitude, longitude, page = 1) => {
           meta: response?.local_orders?.meta,
         },
        }
+=======
+          data: [
+            ...getState()?.common_orders_list?.local_orders?.data,
+            ...response?.data,
+          ],
+          meta: response?.meta,
+        }
+>>>>>>> a974081d9fa8f10fe552e40770d5c83612c59cad
         : response;
 
       dispatch({
@@ -269,14 +278,22 @@ const fetchPostedLocalOrdersList = (latitude, longitude, page = 1) => {
   };
 };
 
+<<<<<<< HEAD
 const filterPostedLocalOrdersList = (payload, isLocalOrder,limit=20) => {
+=======
+const filterPostedLocalOrdersList = (payload, isLocalOrder) => {
+>>>>>>> a974081d9fa8f10fe552e40770d5c83612c59cad
   return async (dispatch, getState) => {
     try {
       console.log("radius payload:::", payload);
       const response = await TAKE_2_API.filterPostedLocalOrdersList(
         payload,
+<<<<<<< HEAD
         isLocalOrder,
         limit
+=======
+        isLocalOrder
+>>>>>>> a974081d9fa8f10fe552e40770d5c83612c59cad
       );
       console.log("response::", response);
       dispatch({
@@ -324,11 +341,19 @@ const fetchPostedInternationalOrdersList = (page = 1) => {
   };
 };
 
+<<<<<<< HEAD
 const fetchHeighPaidOrdersList = (isLocal) => {
   return async (dispatch, getState) => {
     try {
 
       const response = await TAKE_2_API.fetchHeighPaidOrderList(isLocal);
+=======
+const fetchHeighPaidOrdersList = () => {
+  return async (dispatch, getState) => {
+    try {
+
+      const response = await TAKE_2_API.fetchHeighPaidOrderList();
+>>>>>>> a974081d9fa8f10fe552e40770d5c83612c59cad
       dispatch({
         type: Actions.FETCH_HEIGH_PAID_ORDERS_LIST,
         payload: response,
@@ -1107,6 +1132,11 @@ const fetchNotifications = (page = 1) => {
           : false;
 
       const response = await TAKE_2_API.fetchNotifications(page);
+<<<<<<< HEAD
+=======
+      console.log('page noooo:::',( page != 1 && isAlreadyHasOrders));
+      console.log('page noooo::::::::::::',page);
+>>>>>>> a974081d9fa8f10fe552e40770d5c83612c59cad
       const notifications_data =( page != 1 && isAlreadyHasOrders)
         ? {
           data: [
