@@ -21,17 +21,23 @@ const fetchRelevantOrdersList = async (latitude = 33.55818742662511, longitude =
 };
 const fetchPostedOrdersInternationAndLocalList = async (latitude, longitude) => {
   // posted-orders
-  const request = await client.get(`${services.order.posted_orders}?latitude=${latitude}&longitude=${longitude}`);
+  let url = `${services.order.posted_orders}`;
+  if (latitude && longitude) {
+    url = `${services.order.posted_orders}?latitude=${latitude}&longitude=${longitude}`;
+  }
+  const request = await client.get(url);
   // return TAKE_TO_MOCK.posted_orders_list.data;
   return request?.data;
 };
-const fetchProcessingOrdersList = () => {
+const fetchProcessingOrdersList = async (page) => {
   // processing-orders
-  return TAKE_TO_MOCK.processing_orders_list;
+  const request = await client.get(`${services.order.processing_orders}?page=${page}`);
+  return request?.data; //TAKE_TO_MOCK.delivery_orders_list;
+  // return TAKE_TO_MOCK.processing_orders_list;
 };
-const fetchDeliveryOrdersList = async () => {
+const fetchDeliveryOrdersList = async (page) => {
   // completed-orders
-  const request = await client.get(services.order.completed_orders);
+  const request = await client.get(`${services.order.completed_orders}?page=${page}`);
   return request?.data; //TAKE_TO_MOCK.delivery_orders_list;
 };
 
@@ -45,7 +51,6 @@ const fetchCompletedOfferData = async (order_id) => {
   //  order-details/4
   const response = await client.get(`${services.order.order_details}/${order_id}`);
   return response?.data?.data; //TAKE_TO_MOCK.make_single_offer.data;
-  //return TAKE_TO_MOCK.singleCompletedOrderDetails.data;
 };
 
 const fetchPublicUserProfile = (user_id) => {
@@ -53,33 +58,47 @@ const fetchPublicUserProfile = (user_id) => {
   return TAKE_TO_MOCK.make_single_offer;
 };
 
-const fetchLocalPostedOrderList = async (latitude, longitude) => {
+const fetchLocalPostedOrderList = async (latitude, longitude, page) => {
   //true ? posted-local-orders
-  const request = await client.get(`${services.order.posted_local_orders}?latitude=${latitude}&longitude=${longitude}`);
+  let url = `${services.base_url}${services.order.posted_local_orders}?page=${page}`;
+  if (latitude && longitude) {
+    url = `${services.base_url}${services.order.posted_local_orders}?latitude=${latitude}&longitude=${longitude}&page=${page}`;
+  }
+  const request = await client.get(url); //?latitude=${latitude}&longitude=${longitude}`);
   // return TAKE_TO_MOCK.posted_orders_list.data;
   return request?.data;
 
-  return TAKE_TO_MOCK.postedLocalOrderList;
 };
-//filter local orders
-const filterPostedLocalOrdersList = async (payload) => {
+//filter  orders on search map radius screen
+const filterPostedLocalOrdersList = async (payload, isLocalOrder,limit) => {
   //true ? posted-local-orders
   payload = UI_API.getFormData(payload);
-  const request = await client.post(`${services.order.posted_local_orders}`, payload);
+  const request = await client.post(`${isLocalOrder ? services.trip.local_trip : services.trip.international_trip}?page=1&limit=${limit}`, payload);
   return request?.data;
 
-  return TAKE_TO_MOCK.postedLocalOrderList;
 };
-const fetchInternationalPostedOrderList = async () => {
+const fetchInternationalPostedOrderList = async (page) => {
   //t posted-heigh-paid-international-orders
-  const request = await client.get(`${services.order.posted_heigh_paid_international_orders}`);
+  const request = await client.get(`${services.order.posted_heigh_paid_international_orders}?page=${page}`);
   // return TAKE_TO_MOCK.postedInternationalOrderList;
   return request?.data;
-  // const fetchInternationalPostedOrderList = async () => {
-  //   //t posted-heigh-paid-international-orders
-  //   const request = await client.get(`${services.order.posted_heigh_paid_international_orders}`);
-  //   // return TAKE_TO_MOCK.postedInternationalOrderList;
-  //   return request?.data;
+};
+
+const fetchHeighPaidOrderList = async (isLocal) => {
+  //t posted-heigh-paid-international-orders
+  const request = await client.get(`${services.order.heigh_paid_destinations}?is_local=${isLocal}`);
+  return request?.data;
+};
+// fetch high paid orders by city
+const fetchHeighPaidOrdersListByCity = async (city_to, country_to, to_country_short_name,page) => {
+  //t posted-heigh-paid-international-orders
+  let url = `${services.order.posted_international_orders}?city_to=${city_to}&page=${page}`;
+  if (country_to) {
+    url += `&country_to=${country_to}&to_country_short_name=${to_country_short_name}`;
+  }
+
+  const request = await client.get(url);
+  return request?.data;
 };
 
 const fetchAllInternationalPostedOrderList = () => {
@@ -87,19 +106,23 @@ const fetchAllInternationalPostedOrderList = () => {
   return TAKE_TO_MOCK.displayAllInternationalOrdersList;
 };
 
-const fetchOrderOffersRequestsList = (order_id) => {
+const fetchOrderOffersRequestsList = async (order_id) => {
   // order-offers/76
-  return TAKE_TO_MOCK.orderOffersRequestsList.data;
+  const request = await client.get(`${services.order.order_offers}/${order_id}`);
+  return request?.data;
+  // return //TAKE_TO_MOCK.orderOffersRequestsList.data;
 };
 
-const fetchSigleOrderOffersRequestsDetails = (offer_id) => {
+const fetchSigleOrderOffersRequestsDetails = async (offer_id) => {
   // offer-details/6
-  return TAKE_TO_MOCK.offerDetails.data;
+  const request = await client.get(`${services.order.offer_details}/${offer_id}`);
+  return request?.data; //TAKE_TO_MOCK.offerDetails.data;
 };
 
 const fetchOrderHistoryList = async (local = true) => {
   // true ? order-history-local : order-history-international
-  const request = local ? await client.get(services.history_order.order_history_local) : await client.get(services.history_order.order_history_international);
+  const url=local?services.history_order.order_history_local:services.history_order.order_history_international;
+  const request =  await client.get(url);
   return request?.data;
 };
 
@@ -109,9 +132,15 @@ const fetchOrderDeliveryHistoryList = async (local = true) => {
   return request?.data;
 };
 
-const fetchDisputedOrdersList = (local = true) => {
+const fetchDisputedOrdersList = async () => {
   // dispute-orders
-  return TAKE_TO_MOCK.disputedOrderList;
+  const request = await client.get(services.dipusted_order.dispute_orders);
+  return request?.data; // TAKE_TO_MOCK.disputedOrderList;
+};
+const fetchMyOffersList = async (user_id,page) => {
+  // my-offers
+  const request = await client.get(`${services.create_order.my_offers}?page=${page}&search=traveller_id:${user_id};status:pending&searchJoin=and`);
+  return request?.data; //TAKE_TO_MOCK.disputedOrderList;
 };
 
 const fetchDeliveryHistoryOrderDetails = (order_id) => {
@@ -173,9 +202,48 @@ const postSigninData = async (data) => {
   await AsyncStorage.setItem("@token", UI_API._returnStringify(res?.data));
   return res;
 };
+const postSocialData = async (data,provider) => {
+ 
+  const body = UI_API.getFormData({
+    ...data,
+    social_provider:provider
+  });
+  const res = await axios.post(`${services.base_url}${services.auth.social}/${provider}`, body);
+
+  await AsyncStorage.setItem("@token", UI_API._returnStringify(res?.data?.meta?.custom));
+  return res;
+};
 const postEmailOtp = async (email) => {
   const body = UI_API.getFormData({ email });
   const res = await client.post(`${services.auth.email_otp}`, body);
+  return res;
+};
+//forgot password
+const forgotPassword = async (email) => {
+  const body = UI_API.getFormData({ email });
+  const res = await axios.post(`${services.base_url}${services.auth.forgot}`, body);
+  return res;
+};
+//reset password
+const resetPassword = async (payload) => {
+  const body = UI_API.getFormData(payload);
+  const res = await axios.post(`${services.base_url}${services.auth.reset}`, body);
+  return res;
+};
+
+const postMobileOtp = async (mobile) => {
+  const body = UI_API.getFormData({ mobile });
+  const res = await client.post(`${services.auth.mobile_otp}`, body);
+  return res;
+};
+const postDeviceToken = async (payload) => {
+  const body = UI_API.getFormData(payload);
+  const res = await client.post(`${services.auth.device_token}`, body);
+  return res;
+};
+const verifyOTP = async (otp, type) => {
+  const body = UI_API.getFormData({ otp, type });
+  const res = await client.post(`${services.auth.verify_otp}`, body);
   return res;
 };
 
@@ -204,26 +272,35 @@ const addNewAdress = async (payload) => {
     appartment_number: payload?.appartmentNumber,
     office_number: payload?.officeNumber,
     place_id: payload?.place_id,
+    country_short_name: payload?.country_short_name,
   };
   const request = await client.post(`${services.user.user_address}`, data);
 
   return request.data;
 };
 
-const createOrder = async (payload) => {
+const createOrder = async (payload, isReOrder = false, endpoint = null) => {
+  // alert(isReOrder)
   let images = payload["order_gallery[]"];
+  let old_gallery = payload["old_gallery[]"];
 
-  console.log(images);
   const formData = new FormData();
-  images.forEach((el) => {
-    formData.append("order_gallery[]", el);
-  });
+  images?.length > 0 &&
+    images.forEach((el) => {
+      formData.append("order_gallery[]", el);
+    });
+
+  // old_gallery.forEach((el) => {
+  isReOrder && formData.append("old_gallery", JSON.stringify(old_gallery));
+  //  });
 
   const newData = { ...payload };
   delete newData["order_gallery[]"];
+  delete newData["old_gallery[]"];
+  isReOrder && delete newData["product_image_url"];
+
   Object.keys(newData).forEach((key) => formData.append(key, newData[key]));
-  //return console.log(JSON.stringify(formData))
-  const request = await client.post(services?.create_order.order_request, formData);
+  const request = endpoint ? await client.post(endpoint, formData) : await client.post(isReOrder ? services?.create_order?.re_order_request : services?.create_order.order_request, formData);
   return request?.data;
 };
 
@@ -232,27 +309,96 @@ const updateUserProfile = async (payload) => {
   const request = await client.post(services.user.update_profile, data);
   return request?.data;
 };
-const fetchCreatedOrders = async () => {
-  const request = await client.get(services.my_orders.my_orders);
+const fetchCreatedOrders = async (page) => {
+  const request = await client.get(`${services.my_orders.my_orders}?page=${page}`);
   return request?.data;
 };
 
 //post new international or local trip
-const createOrFilterTrip = async (payload, isLocalTrip) => {
-  console.log(payload);
+const createOrFilterTrip = async (payload, isLocalTrip,page) => {
   payload = UI_API.getFormData(payload);
-  const request = await client.post(`${isLocalTrip ? services.trip.local_trip : services.trip.international_trip}`, payload);
-  // console.log('requestrequest:::',request);
+  let url =isLocalTrip ? services.trip.local_trip : services.trip.international_trip;
+  const request = await client.post(`${url}?page=${page}`, payload);
   return request?.data;
 };
 
 const makeOffer = async (payload) => {
   const request = await client.post(services.create_order.make_offer, payload);
-  // console.log('requestrequest:::',request);
   return request?.data;
 };
 
+const widthdrawOffer = async (offer_id) => {
+  const request = await client.delete(`${services.create_order.widthdraw_offer}/${offer_id}`);
+  return request?.data;
+};
+
+const fetchInboxList = async () => {
+  //threads
+  const request = await messangerClient.get(`${services.messanger.inbox_list}`);
+  return request?.data; //TAKE_TO_MOCK.inboxList;
+};
+const fetchActiveChat = async (thread_id, page_id) => {
+  //threads/thread_id/messages
+  if(page_id){
+    const request = await messangerClient.get(`${services.messanger.open_chat}/${thread_id}/messages/page/${page_id}`);
+    return request?.data;
+  }
+  else{
+    const request = await messangerClient.get(`${services.messanger.open_chat}/${thread_id}/messages`);  
+    return request?.data;
+  }
+   //TAKE_TO_MOCK.inboxList;
+};
+
+const fetchCurrenciesList = async () => {
+  //currencies
+  const request = await client.get(`${services.common.currencies}`);
+  return request?.data;
+};
+
+//get public profile info
+const fetchPublicUserInfo = async (user_id) => {
+  //currencies
+  const request = await client.get(`${services.user.user_profile}/${user_id}`);
+  return request?.data;
+};
+
+const fetchNotifications = async (page) => {
+  //currencies
+  const request = await client.get(`${services.user.user_notifications}?page=${page}`);
+  return request?.data;
+};
+//get reorder details
+const fetchOrderDetails = async (order_id) => {
+  //currencies
+  const request = await client.get(`${services.order.order_details}/${order_id}`);
+  return request?.data;
+};
+
+const tokenRefresh = async (previousToken) => {
+  // alert('hwa');
+  //   try {
+  const data = new FormData();
+  data.append("refresh_token", previousToken);
+  data.append("grant_type", "refresh_token");
+  data.append("client_id", 2);
+  data.append("client_secret", "b9vfVBmXV7Te9zJUyw14sL04gGOwgHvTvhA7ycBP");
+  const response = await axios.post(`${services.base_url}${services.auth.login}`, data);
+  if (response.status !== 400 && response.status !== 401) {
+    return response?.data;
+  } else {
+    return null;
+  }
+  // } catch (error) {
+  //     return null;
+  // }
+};
+
 const TAKE_2_API = {
+  fetchOrderDetails,
+  fetchNotifications,
+  postDeviceToken,
+  tokenRefresh,
   fetchHomeOrdersList,
   fetchRelevantOrdersList,
   fetchPostedOrdersInternationAndLocalList,
@@ -271,6 +417,7 @@ const TAKE_2_API = {
   fetchOrderHistoryList,
   fetchOrderDeliveryHistoryList,
   fetchDisputedOrdersList,
+  fetchMyOffersList,
   fetchDeliveryHistoryOrderDetails,
   fetchPopularStoresList,
   fetchOTP,
@@ -278,12 +425,24 @@ const TAKE_2_API = {
   fetchWalletDeliveryDetails,
   fetchWalletPayoutDetails,
   fetchWalletRefundDetails,
+  fetchHeighPaidOrderList,
   //starting live api from here
   fetchUserDetails,
   //post method
   postRegisterData,
   postSigninData,
+  //social login
+  postSocialData,
   postEmailOtp,
+  postMobileOtp,
+  verifyOTP,
+  //forgot password
+  forgotPassword,
+  //reset password
+  resetPassword,
+
+  //widthdraw
+  widthdrawOffer,
 
   //Countries
   fetchCountriesList,
@@ -303,6 +462,18 @@ const TAKE_2_API = {
 
   //make offer
   makeOffer,
+
+  //inbox list
+  fetchInboxList,
+  //active chat
+  fetchActiveChat,
+
+  fetchCurrenciesList,
+  //public user profile
+  fetchPublicUserInfo,
+
+  //paid destination by city
+  fetchHeighPaidOrdersListByCity,
 };
 
 export default TAKE_2_API;

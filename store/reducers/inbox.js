@@ -1,30 +1,25 @@
 import * as Actions from "../ActionTypes";
 
 const INITIAL_STATE = {
-  userInfo: null,
-  publicUserInfo:null,
-  isGuest: true,
+  inboxList: {},
+  active_chat: {},
 };
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case Actions.SET_USER_INFO:
+    case Actions.FETCH_INBOX_LIST:
       return {
         ...state,
-        userInfo: action.payload,
+        inboxList: action.payload,
       };
-    case Actions.SET_PUBLIC_USER_INFO:
+    case Actions.OPEN_ACTIVE_THREAD_CHAT:
       return {
         ...state,
-        publicUserInfo: action.payload,
-      };
-    case Actions.SET_GUEST:
-      return {
-        ...state,
-        isGuest: action.payload,
+        active_chat: action.payload,
       };
     case Actions.SET_LOGOUT:
       return INITIAL_STATE;
+
     default:
       return state;
   }
