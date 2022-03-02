@@ -25,10 +25,6 @@ const fetchPostedOrdersInternationAndLocalList = async (latitude, longitude) => 
   if (latitude && longitude) {
     url = `${services.order.posted_orders}?latitude=${latitude}&longitude=${longitude}`;
   }
-<<<<<<< HEAD
-=======
-  console.log("url for posted orders:::", url);
->>>>>>> a974081d9fa8f10fe552e40770d5c83612c59cad
   const request = await client.get(url);
   // return TAKE_TO_MOCK.posted_orders_list.data;
   return request?.data;
@@ -68,28 +64,16 @@ const fetchLocalPostedOrderList = async (latitude, longitude, page) => {
   if (latitude && longitude) {
     url = `${services.base_url}${services.order.posted_local_orders}?latitude=${latitude}&longitude=${longitude}&page=${page}`;
   }
-<<<<<<< HEAD
-=======
-  console.log("url::", url);
->>>>>>> a974081d9fa8f10fe552e40770d5c83612c59cad
   const request = await client.get(url); //?latitude=${latitude}&longitude=${longitude}`);
   // return TAKE_TO_MOCK.posted_orders_list.data;
   return request?.data;
 
 };
 //filter  orders on search map radius screen
-<<<<<<< HEAD
 const filterPostedLocalOrdersList = async (payload, isLocalOrder,limit) => {
   //true ? posted-local-orders
   payload = UI_API.getFormData(payload);
   const request = await client.post(`${isLocalOrder ? services.trip.local_trip : services.trip.international_trip}?page=1&limit=${limit}`, payload);
-=======
-const filterPostedLocalOrdersList = async (payload, isLocalOrder) => {
-  //true ? posted-local-orders
-  payload = UI_API.getFormData(payload);
-  console.log('radius url',`${isLocalOrder ? services.trip.local_trip : services.trip.international_trip}?page=1`);
-  const request = await client.post(`${isLocalOrder ? services.trip.local_trip : services.trip.international_trip}?page=1`, payload);
->>>>>>> a974081d9fa8f10fe552e40770d5c83612c59cad
   return request?.data;
 
 };
@@ -155,10 +139,6 @@ const fetchOrderOffersRequestsList = async (order_id) => {
 
 const fetchSigleOrderOffersRequestsDetails = async (offer_id) => {
   // offer-details/6
-<<<<<<< HEAD
-=======
-  // console.log(offer_id);
->>>>>>> a974081d9fa8f10fe552e40770d5c83612c59cad
   const request = await client.get(`${services.order.offer_details}/${offer_id}`);
   return request?.data; //TAKE_TO_MOCK.offerDetails.data;
 };
@@ -166,10 +146,6 @@ const fetchSigleOrderOffersRequestsDetails = async (offer_id) => {
 const fetchOrderHistoryList = async (local = true) => {
   // true ? order-history-local : order-history-international
   const url=local?services.history_order.order_history_local:services.history_order.order_history_international;
-<<<<<<< HEAD
-=======
-  console.log('url of order history:::',url);
->>>>>>> a974081d9fa8f10fe552e40770d5c83612c59cad
   const request =  await client.get(url);
   return request?.data;
 };
@@ -363,10 +339,6 @@ const createOrder = async (payload, isReOrder = false, endpoint = null) => {
   let images = payload["order_gallery[]"];
   let old_gallery = payload["old_gallery[]"];
 
-<<<<<<< HEAD
-=======
-  // console.log(images);
->>>>>>> a974081d9fa8f10fe552e40770d5c83612c59cad
   const formData = new FormData();
   images?.length > 0 &&
     images.forEach((el) => {
@@ -383,13 +355,7 @@ const createOrder = async (payload, isReOrder = false, endpoint = null) => {
   isReOrder && delete newData["product_image_url"];
 
   Object.keys(newData).forEach((key) => formData.append(key, newData[key]));
-<<<<<<< HEAD
   const request = endpoint ? await client.post(endpoint, formData) : await client.post(isReOrder ? services?.create_order?.re_order_request : services?.create_order.order_request, formData);
-=======
-  console.log(JSON.stringify(formData));
-  const request = endpoint ? await client.post(endpoint, formData) : await client.post(isReOrder ? services?.create_order?.re_order_request : services?.create_order.order_request, formData);
-  console.log("RESPNSE  :: ", request?.data);
->>>>>>> a974081d9fa8f10fe552e40770d5c83612c59cad
   return request?.data;
 };
 
@@ -405,15 +371,8 @@ const fetchCreatedOrders = async (page) => {
 
 //post new international or local trip
 const createOrFilterTrip = async (payload, isLocalTrip,page) => {
-<<<<<<< HEAD
   payload = UI_API.getFormData(payload);
   let url =isLocalTrip ? services.trip.local_trip : services.trip.international_trip;
-=======
-  console.log("PAYLOAD:", payload);
-  payload = UI_API.getFormData(payload);
-  let url =isLocalTrip ? services.trip.local_trip : services.trip.international_trip;
-  console.log('URL:',`${url}?page=${page}`);
->>>>>>> a974081d9fa8f10fe552e40770d5c83612c59cad
   const request = await client.post(`${url}?page=${page}`, payload);
   return request?.data;
 };
@@ -435,10 +394,6 @@ const fetchInboxList = async () => {
 };
 const fetchActiveChat = async (thread_id, page_id) => {
   //threads/thread_id/messages
-<<<<<<< HEAD
-=======
-  // console.log(`${services.messanger.open_chat}${thread_id}/messages`)
->>>>>>> a974081d9fa8f10fe552e40770d5c83612c59cad
   if(page_id){
     const request = await messangerClient.get(`${services.messanger.open_chat}/${thread_id}/messages/page/${page_id}`);
     return request?.data;
@@ -463,15 +418,9 @@ const fetchPublicUserInfo = async (user_id) => {
   return request?.data;
 };
 
-<<<<<<< HEAD
 const fetchNotifications = async (page) => {
   //currencies
   const request = await client.get(`${services.user.user_notifications}?page=${page}`);
-=======
-const fetchNotifications = async () => {
-  //currencies
-  const request = await client.get(services.user.user_notifications);
->>>>>>> a974081d9fa8f10fe552e40770d5c83612c59cad
   return request?.data;
 };
 //get reorder details
@@ -483,10 +432,6 @@ const fetchOrderDetails = async (order_id) => {
 
 const tokenRefresh = async (previousToken) => {
   // alert('hwa');
-<<<<<<< HEAD
-=======
-  console.log("previousToken :: ", previousToken);
->>>>>>> a974081d9fa8f10fe552e40770d5c83612c59cad
   //   try {
   const data = new FormData();
   data.append("refresh_token", previousToken);
