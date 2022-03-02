@@ -25,6 +25,7 @@ const fetchPostedOrdersInternationAndLocalList = async (latitude, longitude) => 
   if (latitude && longitude) {
     url = `${services.order.posted_orders}?latitude=${latitude}&longitude=${longitude}`;
   }
+  console.log('posted orders url ::::::::::::',url);
   const request = await client.get(url);
   // return TAKE_TO_MOCK.posted_orders_list.data;
   return request?.data;
@@ -96,19 +97,6 @@ const fetchHeighPaidOrdersListByCity = async (city_to, country_to, to_country_sh
   if (country_to) {
     url += `&country_to=${country_to}&to_country_short_name=${to_country_short_name}`;
   }
-
-  const request = await client.get(url);
-  return request?.data;
-};
-
-// fetch high paid orders by city
-const fetchHeighPaidOrdersListByCity = async (city_to, country_to, to_country_short_name,page) => {
-  //t posted-heigh-paid-international-orders
-  let url = `${services.order.posted_international_orders}?city_to=${city_to}&page=${page}`;
-  if (country_to) {
-    url += `&country_to=${country_to}&to_country_short_name=${to_country_short_name}`;
-  }
-  console.log("url:::", url);
 
   const request = await client.get(url);
   return request?.data;
@@ -229,37 +217,6 @@ const postSocialData = async (data,provider) => {
 const postEmailOtp = async (email) => {
   const body = UI_API.getFormData({ email });
   const res = await client.post(`${services.auth.email_otp}`, body);
-  console.log('res:of email ot:',res?.data);
-  return res;
-};
-//forgot password
-const forgotPassword = async (email) => {
-  const body = UI_API.getFormData({ email });
-  const res = await axios.post(`${services.base_url}${services.auth.forgot}`, body);
-  return res;
-};
-//reset password
-const resetPassword = async (payload) => {
-  console.log('final payload',payload);
-  const body = UI_API.getFormData(payload);
-  const res = await axios.post(`${services.base_url}${services.auth.reset}`, body);
-  return res;
-};
-
-const postMobileOtp = async (mobile) => {
-  const body = UI_API.getFormData({ mobile });
-  const res = await client.post(`${services.auth.mobile_otp}`, body);
-  return res;
-};
-const postDeviceToken = async (payload) => {
-  const body = UI_API.getFormData(payload);
-  const res = await client.post(`${services.auth.device_token}`, body);
-  return res;
-};
-const verifyOTP = async (otp, type) => {
-  const body = UI_API.getFormData({ otp, type });
-  const res = await client.post(`${services.auth.verify_otp}`, body);
-  console.log('res of otp::',res);
   return res;
 };
 //forgot password

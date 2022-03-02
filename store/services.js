@@ -154,17 +154,6 @@ const UI_API = {
         // forceJpg: Platform.OS === "ios",
         //waitAnimationEnd: false,
       });
-<<<<<<< HEAD
-=======
-      console.log({
-        uri:
-          Platform.OS === "android"
-            ? response?.path
-            : response?.path.replace("file://", ""),
-        name: Math.random(1),
-        type: response?.mime,
-      });
->>>>>>> a974081d9fa8f10fe552e40770d5c83612c59cad
       // const size = UI_API.bytesToSize(response?.size) || "";
       // if (size.split(" ")[0] * 1 < 3 && size.includes("MB")) throw new Error("Oops! It seems your image size is greater than 2 MB.");
       const ext = response?.path?.split("/");
@@ -197,20 +186,7 @@ const UI_API = {
         // forceJpg: Platform.OS === "ios",
         waitAnimationEnd: false,
       });
-<<<<<<< HEAD
 
-=======
-      console.log(UI_API.bytesToSize(response?.size));
-
-      console.log({
-        uri:
-          Platform.OS === "android"
-            ? response?.path
-            : response?.path.replace("file://", ""),
-        name: Math.random(1),
-        type: response?.mime,
-      });
->>>>>>> a974081d9fa8f10fe552e40770d5c83612c59cad
       // const size = UI_API.bytesToSize(response?.size) || "";
       // if (size.split(" ")[0] * 1 < 3 && size.includes("MB")) throw new Error("Oops! It seems your image size is greater than 2 MB.");
       const ext = response?.path?.split("/");
@@ -488,7 +464,6 @@ const UI_API = {
     } else if (diff === 0) {
       return text + ` ${24} hours`;
     } else if (diff > 2) {
-<<<<<<< HEAD
       return `Deliver before ${moment(date).format("DD MMMM, YYYY")}`;
     } else {
       return text + ` ${diff + 1} days`;
@@ -527,53 +502,9 @@ const UI_API = {
       } else {
         return 0;
       }
-=======
-      return `Deliver before\n${moment(date).format("DD MMMM, YYYY")}`;
-    } else {
-      return text + ` ${diff + 1} days`;
->>>>>>> a974081d9fa8f10fe552e40770d5c83612c59cad
     }
     return current_page;
   },
-<<<<<<< HEAD
-=======
-  _returnFlag: (short_name) =>
-    `${services.base_flag_url}${short_name?.toLowerCase()}.png`,
-
-  _toDataUrlToBase64: (url, callback) => {
-    var xhr = new XMLHttpRequest();
-    xhr.onload = function () {
-      var reader = new FileReader();
-      reader.onloadend = function () {
-        callback(reader.result);
-      };
-      reader.readAsDataURL(xhr.response);
-    };
-    xhr.open("GET", url);
-    xhr.responseType = "blob";
-    xhr.send();
-  },
-  _returnPage: (obj = {}) => {
-    const isAlreadyHasOrders = Object.keys(obj)?.length > 0 ? true : false;
-
-    let current_page = 1;
-    if (isAlreadyHasOrders) {
-      let pagination = obj?.meta?.pagination;
-
-      current_page = pagination?.current_page;
-
-      let total_pages = pagination?.total_pages;
-      console.log("current_page :: ", current_page);
-      console.log("total_pages :: ", total_pages);
-      if (current_page < total_pages) {
-        return ++current_page;
-      } else {
-        return 0;
-      }
-    }
-    return current_page;
-  },
->>>>>>> a974081d9fa8f10fe552e40770d5c83612c59cad
   _checkPermissions: async (a, l) => getPermission(a, l),
   _reOrderHandler :(order_data={},countriesList=[],callBack) => {
     let re_order_object = {

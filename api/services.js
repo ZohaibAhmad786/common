@@ -28,7 +28,7 @@ export default {
   common: {
     countires: "countries?limit=0",
     storeList: "popular-stores",
-    currencies:'currencies' 
+    currencies:'currencies'
   },
   create_order: {
     order_request: "order-request",
