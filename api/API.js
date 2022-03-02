@@ -101,17 +101,6 @@ const fetchHeighPaidOrdersListByCity = async (city_to, country_to, to_country_sh
   return request?.data;
 };
 
-const fetchHeighPaidOrderList = async () => {
-  //t posted-heigh-paid-international-orders
-  const request = await client.get(`${services.order.heigh_paid_destinations}`);
-  // return TAKE_TO_MOCK.postedInternationalOrderList;
-  return request?.data;
-  // const fetchInternationalPostedOrderList = async () => {
-  //   //t posted-heigh-paid-international-orders
-  //   const request = await client.get(`${services.order.posted_heigh_paid_international_orders}`);
-  //   // return TAKE_TO_MOCK.postedInternationalOrderList;
-  //   return request?.data;
-};
 // fetch high paid orders by city
 const fetchHeighPaidOrdersListByCity = async (city_to, country_to, to_country_short_name,page) => {
   //t posted-heigh-paid-international-orders
